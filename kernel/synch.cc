@@ -114,10 +114,8 @@ void
 Semaphore::V() {
   #ifndef ETUDIANTS_TP
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
-    if(wait_queue->IsEmpty()){
-      count=count+1;
-    }
-    else{
+    count=count+1;
+    if(!(wait_queue->IsEmpty())){
       g_scheduler->ReadyToRun((Thread*) wait_queue->Remove());
     }
     g_machine->interrupt->SetStatus(INTERRUPTS_ON);
