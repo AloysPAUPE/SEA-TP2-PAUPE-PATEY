@@ -283,6 +283,52 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       break;
     }
 
+    #ifndef ETUDIANTS_TP
+    #endif
+    #ifdef ETUDIANTS_TP
+    case SC_P: {
+      DEBUG('e', (char *) "Debug: P call.\n");
+      uint64_t size;
+      int addr;
+      int type;
+      type = g_machine->ReadIntRegister(17);
+      if(type!=SEMAPHORE_TYPE){
+        DEBUG('e', (char *) "Debug: P called on wrong type.\n");
+        break;
+      }
+      else{
+        addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
+        Semaphore * p_sem;
+        Semaphore * p_sem=addr;
+        p_sem->P();
+      }
+      break;
+    }
+    #endif
+
+    #ifndef ETUDIANTS_TP
+    #endif
+    #ifdef ETUDIANTS_TP
+    case SC_P: {
+      DEBUG('e', (char *) "Debug: P call.\n");
+      uint64_t size;
+      int addr;
+      int type;
+      type = g_machine->ReadIntRegister(17);
+      if(type!=SEMAPHORE_TYPE){
+        DEBUG('e', (char *) "Debug: P called on wrong type.\n");
+        break;
+      }
+      else{
+        addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
+        Semaphore * p_sem;
+        Semaphore * p_sem=addr;
+        p_sem->V();
+      }
+      break;
+    }
+    #endif
+
     case SC_CREATE: {
       // The create system call
       // Create a new file in nachos file system
