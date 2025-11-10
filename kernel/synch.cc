@@ -234,8 +234,16 @@ Condition::~Condition() {
 //----------------------------------------------------------------------
 void
 Condition::Wait() {
+  #ifdef ETUDIANTS_TP
+    g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
+    wait_queue->Append(g_current_thread);
+    g_current_thread->Sleep();
+    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+  #endif
+  #ifndef ETUDIANTS_TP
   printf("**** Warning: method Condition::Wait is not implemented yet\n");
   exit(ERROR);
+  #endif
 }
 
 //----------------------------------------------------------------------
@@ -246,8 +254,17 @@ Condition::Wait() {
 //----------------------------------------------------------------------
 void
 Condition::Signal() {
+  #ifdef ETUDIANTS_TP
+    g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
+    if(!(wait_queue->IsEmpty())){
+      g_scheduler->ReadyToRun((Thread*) wait_queue->Remove());
+    }
+    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+  #endif
+  #ifndef ETUDIANTS_TP
   printf("**** Warning: method Condition::Signal is not implemented yet\n");
   exit(ERROR);
+  #endif
 }
 
 //----------------------------------------------------------------------
@@ -258,6 +275,15 @@ Condition::Signal() {
 //----------------------------------------------------------------------
 void
 Condition::Broadcast() {
+  #ifdef ETUDIANTS_TP
+    g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
+    while(!(wait_queue->IsEmpty())){
+      g_scheduler->ReadyToRun((Thread*) wait_queue->Remove());
+    }
+    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+  #endif
+  #ifndef ETUDIANTS_TP
   printf("**** Warning: method Condition::Broadcast is not implemented yet\n");
   exit(ERROR);
+  #endif
 }
