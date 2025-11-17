@@ -1,0 +1,478 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "addrspace.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/addrspace.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "exception.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/exception.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "main.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/main.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "msgerror.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/msgerror.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "process.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/process.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "scheduler.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/scheduler.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "synch.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/synch.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "system.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/system.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "thread.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/thread.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "elf.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/kernel/elf.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "directory.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys/directory.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "filehdr.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys/filehdr.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "filesys.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys/filesys.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "fsmisc.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys/fsmisc.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "oftable.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys/oftable.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "openfile.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/filesys/openfile.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "drvACIA.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/drivers",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/drivers/drvACIA.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "drvConsole.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/drivers",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/drivers/drvConsole.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "drvDisk.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/drivers",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/drivers/drvDisk.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "config.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/utility",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/utility/config.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "stats.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/utility",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/utility/stats.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "physMem.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/vm",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/vm/physMem.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "pagefaultmanager.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/vm",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/vm/pagefaultmanager.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "swapManager.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/vm",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/vm/swapManager.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "ACIA.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/ACIA.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "ACIA_sysdep.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/ACIA_sysdep.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "console.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/console.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "disk.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/disk.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "interrupt.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/interrupt.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "machine.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/machine.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "mmu.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/mmu.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "translationtable.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/translationtable.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "sysdep.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/sysdep.cc"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-g",
+      "-Wall",
+      "-Wshadow",
+      "-D_REENTRANT",
+      "-I../",
+      "-c",
+      "timer.cc"
+    ],
+    "directory": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine",
+    "file": "/home/arnaudp/Documents/ENSRennes/M1/SEA/nachos/machine/timer.cc"
+  }
+]
