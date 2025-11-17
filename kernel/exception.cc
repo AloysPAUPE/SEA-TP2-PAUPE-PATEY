@@ -304,7 +304,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
 
     #ifndef ETUDIANTS_TP
     #endif
-    //#ifdef ETUDIANTS_TP
+    #ifdef ETUDIANTS_TP
     case SC_SEM_DESTROY: {
       DEBUG('e', (char *) "Debug: Sem_Destroy call.\n");
       int addr;
@@ -319,7 +319,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       }
       break;
     }
-    //#endif
+    #endif
 
     #ifndef ETUDIANTS_TP
     #endif
@@ -365,6 +365,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
     case SC_LOCK_CREATE: {
       DEBUG('e', (char *) "Debug: Lock_Create call.\n");
       int addr;
+      uint64_t size;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       size=GetLengthParam(addr);
       char ch[size];
