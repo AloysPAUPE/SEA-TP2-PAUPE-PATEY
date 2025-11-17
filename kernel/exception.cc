@@ -290,7 +290,6 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       DEBUG('e', (char *) "Debug: Sem_Create call.\n");
       uint64_t size;
       int addr;
-      int type;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       size=GetLengthParam(addr);
       char ch[size];
