@@ -285,7 +285,11 @@ Condition::Signal() {
     exit(ERROR);
   #endif
   #ifdef ETUDIANTS_TP
-
+    g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
+    if(!(wait_queue->IsEmpty())){
+      g_scheduler->ReadyToRun((Thread) wait_queue->Remove());
+    }
+    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
   #endif
 }
 
@@ -302,5 +306,10 @@ Condition::Broadcast() {
     exit(ERROR);
   #endif
   #ifdef ETUDIANTS_TP
+    g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
+    while(!(wait_queue->IsEmpty())){
+      g_scheduler->ReadyToRun((Thread) wait_queue->Remove());
+    }
+    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
   #endif
 }
