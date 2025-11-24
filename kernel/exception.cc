@@ -296,7 +296,8 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       GetStringParam(addr, ch, size);
       int counter = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_2);
       Semaphore sem=Semaphore(ch,counter);
-      g_machine->WriteIntRegister(10,(int64_t) &sem);
+      int32_t sem_addr = g_object_addrs->AddObject(&sem);
+      g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) sem_addr);
       break;
     }
     #endif
@@ -309,7 +310,8 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Semaphore * p_sem;
-      p_sem = (Semaphore *) addr;
+      p_sem =  (Semaphore *) g_object_addrs->SearchObject(addr);
+      g_object_addrs->RemoveObject(addr);
       if((p_sem->type)!=SEMAPHORE_TYPE){
         DEBUG('e', (char *) "Debug: Sem_Destroy called on wrong type.\n");
       }
@@ -328,7 +330,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Semaphore * p_sem;
-      p_sem = (Semaphore *) addr;
+      p_sem =  (Semaphore *) g_object_addrs->SearchObject(addr);
       if((p_sem->type)!=SEMAPHORE_TYPE){
         DEBUG('e', (char *) "Debug: Sem_P called on wrong type.\n");
       }
@@ -347,7 +349,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Semaphore * p_sem;
-      p_sem = (Semaphore *) addr;
+      p_sem =  (Semaphore *) g_object_addrs->SearchObject(addr);
       if((p_sem->type)!=SEMAPHORE_TYPE){
         DEBUG('e', (char *) "Debug: Sem_V called on wrong type.\n");
       }
@@ -370,7 +372,8 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       char ch[size];
       GetStringParam(addr,ch,size);
       Lock lock=Lock(ch);
-      g_machine->WriteIntRegister(10,(int64_t) &lock);
+      int32_t lock_addr=g_object_addrs->AddObject(&lock);
+      g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) lock_addr);
       break;
     }
     #endif
@@ -383,7 +386,8 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Lock * p_lock;
-      p_lock = (Lock *) addr;
+      p_lock =  (Lock *) g_object_addrs->SearchObject(addr);
+      g_object_addrs->RemoveObject(addr);
       if((p_lock->type)!=LOCK_TYPE){
         DEBUG('e', (char *) "Debug: Lock_Destroy called on wrong type.\n");
       }
@@ -402,7 +406,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Lock * p_lock;
-      p_lock = (Lock *) addr;
+      p_lock =  (Lock *) g_object_addrs->SearchObject(addr);
       if((p_lock->type)!=LOCK_TYPE){
         DEBUG('e', (char *) "Debug: Lock_Acquire called on wrong type.\n");
       }
@@ -421,7 +425,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Lock * p_lock;
-      p_lock = (Lock *) addr;
+      p_lock =  (Lock *) g_object_addrs->SearchObject(addr);
       if((p_lock->type)!=LOCK_TYPE){
         DEBUG('e', (char *) "Debug: Lock_Release called on wrong type.\n");
       }
@@ -444,7 +448,8 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       char ch[size];
       GetStringParam(addr,ch,size);
       Condition cond=Condition(ch);
-      g_machine->WriteIntRegister(10,(int64_t) &cond);
+      int32_t cond_addr = g_object_addrs->AddObject(&cond);
+      g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) cond_addr);
       break;
     }
     #endif
@@ -457,7 +462,8 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Condition * p_cond;
-      p_cond = (Condition *) addr;
+      p_cond =  (Condition *) g_object_addrs->SearchObject(addr);
+      g_object_addrs->RemoveObject(addr;
       if((p_cond->type)!=CONDITION_TYPE){
         DEBUG('e', (char *) "Debug: Cond_Destroy called on wrong type.\n");
       }
@@ -476,7 +482,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Condition * p_cond;
-      p_cond = (Condition *) addr;
+      p_cond =  (Condition *) g_object_addrs->SearchObject(addr);
       if((p_cond->type)!=CONDITION_TYPE){
         DEBUG('e', (char *) "Debug: Cond_Wait called on wrong type.\n");
       }
@@ -495,7 +501,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Condition * p_cond;
-      p_cond = (Condition *) addr;
+      p_cond =  (Condition *) g_object_addrs->SearchObject(addr);
       if((p_cond->type)!=CONDITION_TYPE){
         DEBUG('e', (char *) "Debug: Cond_Signal called on wrong type.\n");
       }
@@ -514,7 +520,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int addr;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       Condition * p_cond;
-      p_cond = (Condition *) addr;
+      p_cond =  (Condition *) g_object_addrs->SearchObject(addr);
       if((p_cond->type)!=CONDITION_TYPE){
         DEBUG('e', (char *) "Debug: Cond_Broadcast called on wrong type.\n");
       }
