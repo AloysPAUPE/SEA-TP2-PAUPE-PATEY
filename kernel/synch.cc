@@ -127,6 +127,7 @@ Semaphore::V() {
   #endif
 }
 
+
 //----------------------------------------------------------------------
 // Lock::Lock
 /*! 	Initialize a Lock, so that it can be used for synchronization.
@@ -263,12 +264,15 @@ Condition::~Condition() {
 //----------------------------------------------------------------------
 void
 Condition::Wait() {
-  #ifndef ETUDIANTS_TP
-    printf("**** Warning: method Condition::Wait is not implemented yet\n");
-    exit(ERROR);
-  #endif
   #ifdef ETUDIANTS_TP
-
+    g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
+    wait_queue->Append(g_current_thread);
+    g_current_thread->Sleep();
+    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+  #endif
+  #ifndef ETUDIANTS_TP
+  printf(" Warning: method Condition::Wait is not implemented yet\n");
+  exit(ERROR);
   #endif
 }
 
