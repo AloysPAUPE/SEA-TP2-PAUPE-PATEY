@@ -295,8 +295,8 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       char ch[size];
       GetStringParam(addr, ch, size);
       int counter = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_2);
-      Semaphore sem=Semaphore(ch,counter);
-      int32_t sem_addr = g_object_addrs->AddObject(&sem);
+      Semaphore* sem=new Semaphore(ch,counter);
+      int32_t sem_addr = g_object_addrs->AddObject(sem);
       g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) sem_addr);
       break;
     }
@@ -371,8 +371,8 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       size=GetLengthParam(addr);
       char ch[size];
       GetStringParam(addr,ch,size);
-      Lock lock=Lock(ch);
-      int32_t lock_addr=g_object_addrs->AddObject(&lock);
+      Lock* lock=new Lock(ch);
+      int32_t lock_addr=g_object_addrs->AddObject(lock);
       g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) lock_addr);
       break;
     }
@@ -447,7 +447,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       size=GetLengthParam(addr);
       char ch[size];
       GetStringParam(addr,ch,size);
-      Condition cond=Condition(ch);
+      Condition* cond=new Condition(ch);
       int32_t cond_addr = g_object_addrs->AddObject(&cond);
       g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) cond_addr);
       break;
