@@ -133,6 +133,7 @@ Semaphore::V() {
   #endif
 }
 
+
 //----------------------------------------------------------------------
 // Lock::Lock
 /*! 	Initialize a Lock, so that it can be used for synchronization.
@@ -277,7 +278,7 @@ Condition::Wait() {
     printf("**** Warning: method Condition::Wait is not implemented yet\n");
     exit(ERROR);
   #endif
-  #ifdef ETUDIANTS_TP
+   #ifdef ETUDIANTS_TP
     DEBUG('e', (char *) "Debug: On rentre dans wait avec %s.\n", condition_name);
     IntStatus c_status = g_machine->interrupt->GetStatus();
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);

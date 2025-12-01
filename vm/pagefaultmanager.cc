@@ -48,7 +48,12 @@ PageFaultManager::~PageFaultManager() {}
 */
 ExceptionType
 PageFaultManager::PageFault(uint64_t virtualPage) {
+  #ifndef ETUDIANTS_TP
   printf("**** Warning: page fault manager is not implemented yet\n");
   exit(ERROR);
+  #endif
+  #ifdef ETUDIANTS_TP
+    uint64_t free_page=g_physical_mem_manager->FindFreePage();
+  #endif
   return ((ExceptionType) 0);
 }

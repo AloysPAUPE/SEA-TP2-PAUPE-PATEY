@@ -290,7 +290,6 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       DEBUG('e', (char *) "Debug: Sem_Create call.\n");
       uint64_t size;
       int addr;
-      int type;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       size=GetLengthParam(addr);
       char ch[size];
@@ -298,7 +297,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       int counter = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_2);
       Semaphore sem=Semaphore(ch,counter);
       int32_t sem_addr = g_object_addrs->AddObject(&sem);
-      g_machine->WriteIntRegister(10,(int64_t) sem_addr);
+      g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) sem_addr);
       break;
     }
     #endif
@@ -371,13 +370,14 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       DEBUG('e', (char *) "Debug: Lock_Create call.\n");
       uint64_t size;
       int addr;
+      uint64_t size;
       addr = g_machine->ReadIntRegister(REG_SYSCALL_PARAM_1);
       size=GetLengthParam(addr);
       char ch[size];
       GetStringParam(addr,ch,size);
       Lock lock=Lock(ch);
-      int32_t lock_addr = g_object_addrs->AddObject(&lock);
-      g_machine->WriteIntRegister(10,(int64_t) lock_addr);
+      int32_t lock_addr=g_object_addrs->AddObject(&lock);
+      g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) lock_addr);
       break;
     }
     #endif
@@ -453,7 +453,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       GetStringParam(addr,ch,size);
       Condition cond=Condition(ch);
       int32_t cond_addr = g_object_addrs->AddObject(&cond);
-      g_machine->WriteIntRegister(10,(int64_t) cond_addr);
+      g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) cond_addr);
       break;
     }
     #endif
