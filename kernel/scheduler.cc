@@ -131,6 +131,7 @@ Scheduler::SwitchTo(Thread *nextThread) {
     if(g_thread_to_be_destroyed != NULL) {
       DEBUG('e', (char *) "Debug: On tue le thread %s.\n", g_thread_to_be_destroyed->GetName());
       delete g_thread_to_be_destroyed;
+      g_thread_to_be_destroyed = NULL;
     }
   #endif
 

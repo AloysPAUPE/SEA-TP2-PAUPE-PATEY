@@ -23,8 +23,7 @@
 int
 main() {
 
-  //n_printf("** ** ** Bonjour le monde ** ** **\n");
-  n_printf("B");
+  n_printf("** ** ** Bonjour le monde ** ** **\n");
 
   return 0;
 }
