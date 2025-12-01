@@ -129,6 +129,7 @@ Scheduler::SwitchTo(Thread *nextThread) {
   #endif
   #ifdef ETUDIANTS_TP
     if(g_thread_to_be_destroyed != NULL) {
+      DEBUG('e', (char *) "Debug: On tue le thread %s.\n", g_thread_to_be_destroyed->GetName());
       delete g_thread_to_be_destroyed;
     }
   #endif
