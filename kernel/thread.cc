@@ -117,6 +117,7 @@ Thread::Start(Process *owner, int64_t func, int64_t arg) {
     exit(ERROR);
   #endif
   #ifdef ETUDIANTS_TP
+    DEBUG('e', (char *) "Debug: On rentre dans le thread %s.\n", thread_name);
     process = owner;
     uint64_t p_pile = owner->addrspace->StackAllocate();
     int8_t* p_bounded_array = AllocBoundedArray(SIMULATORSTACKSIZE);
@@ -125,6 +126,7 @@ Thread::Start(Process *owner, int64_t func, int64_t arg) {
     process->numThreads++;
     g_alive->Append(this);
     g_scheduler->ReadyToRun(this);
+    return NO_ERROR;
   #endif
 }
 
@@ -281,13 +283,14 @@ Thread::Finish() {
     Sleep();   // invokes SWITCH
   #endif
   #ifdef ETUDIANTS_TP
+    IntStatus c_status = g_machine->interrupt->GetStatus();
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
     g_alive->RemoveItem(this);
-    g_object_addrs->RemoveItem(this);
+    g_object_addrs->RemoveObject(this);
     process->numThreads--;
     g_thread_to_be_destroyed = g_current_thread;
     Sleep();
-    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+    g_machine->interrupt->SetStatus(c_status);
   #endif
 }
 
@@ -383,10 +386,10 @@ Thread::SaveProcessorState() {
   #endif
   #ifdef ETUDIANTS_TP
       for(int i=0;i<NUM_INT_REGS;i++){
-        thread_context.int_registers[i] = g_machine->int_integers[i];
+        thread_context.int_registers[i] = g_machine->int_registers[i];
       }
       for(int i=0;i<NUM_FP_REGS;i++){
-        thread_context.float_registers[i] = g_machine->float_integers[i];
+        thread_context.float_registers[i] = g_machine->float_registers[i];
       }
       thread_context.pc = g_machine->pc;
   #endif
@@ -407,10 +410,10 @@ Thread::RestoreProcessorState() {
   #endif
   #ifdef ETUDIANTS_TP
       for(int i=0;i<NUM_INT_REGS;i++){
-        g_machine->int_registers[i] = thread_context.int_integers[i];
+        g_machine->int_registers[i] = thread_context.int_registers[i];
       }
       for(int i=0;i<NUM_FP_REGS;i++){
-        g_machine->float_registers[i] = thread_context.float_integers[i];
+        g_machine->float_registers[i] = thread_context.float_registers[i];
       }
       g_machine->pc = thread_context.pc;
   #endif

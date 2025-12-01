@@ -93,13 +93,15 @@ Semaphore::P() {
     exit(ERROR);
   #endif
   #ifdef ETUDIANTS_TP
+    DEBUG('e', (char *) "Debug: On rentre dans P avec %s.\n", semaphore_name);
+    IntStatus c_status = g_machine->interrupt->GetStatus();
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
     count = count - 1;
     if(count < 0) {
       wait_queue->Append(g_current_thread);
       g_current_thread->Sleep();
     }
-    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+    g_machine->interrupt->SetStatus(c_status);
   #endif
 }
 
@@ -119,11 +121,15 @@ Semaphore::V() {
     exit(ERROR);
   #endif
   #ifdef ETUDIANTS_TP
+    DEBUG('e', (char *) "Debug: On rentre dans V avec %s.\n", semaphore_name);
+    IntStatus c_status = g_machine->interrupt->GetStatus();
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
     count = count + 1;
-    Thread *t = (Thread *) wait_queue->Remove();
-    g_scheduler->ReadyToRun(t);
-    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+    if(count <= 0){
+      Thread *t = (Thread *) wait_queue->Remove();
+      g_scheduler->ReadyToRun(t);
+    }
+    g_machine->interrupt->SetStatus(c_status);
   #endif
 }
 
@@ -175,6 +181,8 @@ Lock::Acquire() {
     exit(ERROR);
   #endif
   #ifdef ETUDIANTS_TP
+  DEBUG('e', (char *) "Debug: On rentre dans lock acquire avec %s.\n", lock_name);
+  IntStatus c_status = g_machine->interrupt->GetStatus();
   g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
   if(is_free){
     is_free = false;
@@ -184,7 +192,7 @@ Lock::Acquire() {
     wait_queue->Append(g_current_thread);
     g_current_thread->Sleep();
   }
-  g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+  g_machine->interrupt->SetStatus(c_status);
   #endif
 }
 
@@ -204,7 +212,9 @@ Lock::Release() {
     exit(ERROR);
   #endif
   #ifdef ETUDIANTS_TP
+    DEBUG('e', (char *) "Debug: On rentre dans lock release avec %s.\n", lock_name);
     ASSERT(g_current_thread == owner);
+    IntStatus c_status = g_machine->interrupt->GetStatus();
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
     if(wait_queue->IsEmpty()){
       is_free = true;
@@ -215,7 +225,7 @@ Lock::Release() {
       owner = t;
       g_scheduler->ReadyToRun(t);
     }
-    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+    g_machine->interrupt->SetStatus(c_status);
   #endif
 }
 
@@ -264,15 +274,17 @@ Condition::~Condition() {
 //----------------------------------------------------------------------
 void
 Condition::Wait() {
-  #ifdef ETUDIANTS_TP
+  #ifndef ETUDIANTS_TP
+    printf("**** Warning: method Condition::Wait is not implemented yet\n");
+    exit(ERROR);
+  #endif
+   #ifdef ETUDIANTS_TP
+    DEBUG('e', (char *) "Debug: On rentre dans wait avec %s.\n", condition_name);
+    IntStatus c_status = g_machine->interrupt->GetStatus();
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
     wait_queue->Append(g_current_thread);
     g_current_thread->Sleep();
-    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
-  #endif
-  #ifndef ETUDIANTS_TP
-  printf(" Warning: method Condition::Wait is not implemented yet\n");
-  exit(ERROR);
+    g_machine->interrupt->SetStatus(c_status);
   #endif
 }
 
@@ -289,11 +301,13 @@ Condition::Signal() {
     exit(ERROR);
   #endif
   #ifdef ETUDIANTS_TP
+    DEBUG('e', (char *) "Debug: On rentre dans signal avec %s.\n", condition_name);
+    IntStatus c_status = g_machine->interrupt->GetStatus();
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
     if(!(wait_queue->IsEmpty())){
-      g_scheduler->ReadyToRun((Thread) wait_queue->Remove());
+      g_scheduler->ReadyToRun((Thread*) wait_queue->Remove());
     }
-    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+    g_machine->interrupt->SetStatus(c_status);
   #endif
 }
 
@@ -310,10 +324,12 @@ Condition::Broadcast() {
     exit(ERROR);
   #endif
   #ifdef ETUDIANTS_TP
+    DEBUG('e', (char *) "Debug: On rentre dans broadcast avec %s.\n", condition_name);
+    IntStatus c_status = g_machine->interrupt->GetStatus();
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
     while(!(wait_queue->IsEmpty())){
-      g_scheduler->ReadyToRun((Thread) wait_queue->Remove());
+      g_scheduler->ReadyToRun((Thread*) wait_queue->Remove());
     }
-    g_machine->interrupt->SetStatus(INTERRUPTS_ON);
+    g_machine->interrupt->SetStatus(c_status);
   #endif
 }
