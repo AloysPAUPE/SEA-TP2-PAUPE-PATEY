@@ -626,7 +626,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
            i++) {   // copy the buffer into the emulator memory
         g_machine->mmu->WriteMem(addr++, 1, buffer[i]);
       }
-      g_machine->WriteIntRegister(REG_RET_SYSCALL, numread);number
+      g_machine->WriteIntRegister(REG_RET_SYSCALL, numread);
       break;
     }
 
