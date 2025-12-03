@@ -287,7 +287,6 @@ Thread::Finish() {
     g_machine->interrupt->SetStatus(INTERRUPTS_OFF);
     g_alive->RemoveItem(this);
     g_object_addrs->RemoveObject(this);
-    process->numThreads--;
     g_thread_to_be_destroyed = g_current_thread;
     Sleep();
     g_machine->interrupt->SetStatus(c_status);
@@ -392,6 +391,7 @@ Thread::SaveProcessorState() {
         thread_context.float_registers[i] = g_machine->float_registers[i];
       }
       thread_context.pc = g_machine->pc;
+      //process->addrspace->translationTable = g_machine -> mmu ->translationTable;
   #endif
 }
 
@@ -416,6 +416,7 @@ Thread::RestoreProcessorState() {
         g_machine->float_registers[i] = thread_context.float_registers[i];
       }
       g_machine->pc = thread_context.pc;
+      //g_machine -> mmu ->translationTable = process->addrspace->translationTable;
   #endif
 }
 
