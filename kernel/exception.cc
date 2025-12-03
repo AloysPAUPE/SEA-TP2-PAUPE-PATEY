@@ -371,8 +371,8 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       size=GetLengthParam(addr);
       char ch[size];
       GetStringParam(addr,ch,size);
-      Lock* lock=new Lock(ch);
-      int32_t lock_addr=g_object_addrs->AddObject(lock);
+      Lock lock=Lock(ch);
+      int32_t lock_addr=g_object_addrs->AddObject(&lock);
       g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) lock_addr);
       break;
     }
@@ -447,7 +447,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
       size=GetLengthParam(addr);
       char ch[size];
       GetStringParam(addr,ch,size);
-      Condition* cond=new Condition(ch);
+      Condition cond=Condition(ch);
       int32_t cond_addr = g_object_addrs->AddObject(&cond);
       g_machine->WriteIntRegister(REG_SYSCALL_PARAM_1,(int64_t) cond_addr);
       break;
@@ -626,7 +626,7 @@ ExceptionHandler(ExceptionType exceptiontype, int vaddr) {
            i++) {   // copy the buffer into the emulator memory
         g_machine->mmu->WriteMem(addr++, 1, buffer[i]);
       }
-      g_machine->WriteIntRegister(REG_RET_SYSCALL, numread);
+      g_machine->WriteIntRegister(REG_RET_SYSCALL, numread);number
       break;
     }
 
