@@ -391,7 +391,6 @@ Thread::SaveProcessorState() {
         thread_context.float_registers[i] = g_machine->float_registers[i];
       }
       thread_context.pc = g_machine->pc;
-      //process->addrspace->translationTable = g_machine -> mmu ->translationTable;
   #endif
 }
 
@@ -416,7 +415,7 @@ Thread::RestoreProcessorState() {
         g_machine->float_registers[i] = thread_context.float_registers[i];
       }
       g_machine->pc = thread_context.pc;
-      //g_machine -> mmu ->translationTable = process->addrspace->translationTable;
+      g_machine->mmu->translationTable = process->addrspace->translationTable;
   #endif
 }
 
