@@ -180,15 +180,15 @@ PhysicalMemManager::EvictPage() {
   #endif
   #ifdef ETUDIANTS_TP
   printf("valeur de iclock : %lu\n", i_clock);
-  while(tpr[i_clock].locked == true || tpr[i_clock].owner->translationTable->getBitU(tpr[i_clock].virtualPage) == 1){
+  while(tpr[i_clock].locked || tpr[i_clock].owner->translationTable->getBitU(tpr[i_clock].virtualPage)){
+    printf("salut c moi tchoupi\n");
     tpr[i_clock].owner->translationTable->clearBitU(tpr[i_clock].virtualPage);
     i_clock = (i_clock+1)%(g_cfg->NumPhysPages);
     printf("valeur de iclock : %lu\n", i_clock);
   }
   printf("on est sorti\n");
   tpr[i_clock].owner->translationTable->setAddrDisk(tpr[i_clock].virtualPage, g_swap_manager->PutPageSwap(-1, i_clock));
-  FreePhysicalPage(i_clock);
-  return FindFreePage();
+  return i_clock;
   #endif
 }
 
