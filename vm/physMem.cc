@@ -139,12 +139,7 @@ PhysicalMemManager::FindFreePage() {
 
   // Check that the free list is not empty
   if (free_page_list.IsEmpty()) {
-    #ifndef ETUDIANTS_TP
     return INVALID_PAGE;
-    #endif
-    #ifdef ETUDIANTS_TP
-    return EvictPage();
-    #endif
   }
 
   // Update statistics
@@ -179,15 +174,15 @@ PhysicalMemManager::EvictPage() {
   return (0);
   #endif
   #ifdef ETUDIANTS_TP
-  printf("valeur de iclock : %lu\n", i_clock);
-  while(tpr[i_clock].locked || tpr[i_clock].owner->translationTable->getBitU(tpr[i_clock].virtualPage)){
-    printf("salut c moi tchoupi\n");
+  int m = 0;
+  while((tpr[i_clock].locked && m<5) || tpr[i_clock].owner->translationTable->getBitU(tpr[i_clock].virtualPage)){
     tpr[i_clock].owner->translationTable->clearBitU(tpr[i_clock].virtualPage);
     i_clock = (i_clock+1)%(g_cfg->NumPhysPages);
-    printf("valeur de iclock : %lu\n", i_clock);
+    m++;
   }
-  printf("on est sorti\n");
   tpr[i_clock].owner->translationTable->setAddrDisk(tpr[i_clock].virtualPage, g_swap_manager->PutPageSwap(-1, i_clock));
+  tpr[i_clock].owner->translationTable->clearBitSwap(tpr[i_clock].virtualPage);
+  printf("okok\n");
   return i_clock;
   #endif
 }

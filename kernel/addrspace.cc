@@ -97,7 +97,6 @@ AddrSpace::AddrSpace(OpenFile *exec_file, Process *p, uint64_t *err) {
     printf("Error, wrong file format for ELF file, exiting.\n");
     exit(ERROR);
   }
-
   printf("\n****  Loading file %s :\n", exec_file->GetName());
 
   // Create an empty translation table
@@ -155,7 +154,7 @@ AddrSpace::AddrSpace(OpenFile *exec_file, Process *p, uint64_t *err) {
          pgdisk < divRoundUp(elff.getShSize(i), g_cfg->PageSize);
          pgdisk++, virt_page++) {
 
-      #ifndef ETUDIANTS_TP
+    #ifndef ETUDIANTS_TP
 
       /* Without demand paging */
 
@@ -212,9 +211,8 @@ AddrSpace::AddrSpace(OpenFile *exec_file, Process *p, uint64_t *err) {
       translationTable->setBitValid(virt_page);
 
       /* End of code without demand paging */
-      #endif
-      #ifdef ETUDIANTS_TP
-
+    #endif
+    #ifdef ETUDIANTS_TP
       // Set up default values for the page table entry
       translationTable->clearBitSwap(virt_page);
       translationTable->setBitReadAllowed(virt_page);
@@ -225,18 +223,6 @@ AddrSpace::AddrSpace(OpenFile *exec_file, Process *p, uint64_t *err) {
         translationTable->clearBitWriteAllowed(virt_page);
       translationTable->clearBitIo(virt_page);
 
-      // Get a page in physical memory, halt of there is not sufficient space
-      int pp = g_physical_mem_manager->FindFreePage();
-      if (pp == INVALID_PAGE) {
-        printf("Not enough free space to load program %s\n",
-               exec_file->GetName());
-        g_machine->interrupt->Halt(ERROR);
-      }
-      g_physical_mem_manager->tpr[pp].virtualPage = virt_page;
-      g_physical_mem_manager->tpr[pp].owner = this;
-      g_physical_mem_manager->tpr[pp].locked = true;
-      translationTable->setPhysicalPage(virt_page, pp);
-
       if (elff.getShType(i) != SHT_NOBITS) {
         translationTable->setAddrDisk(virt_page, elff.getShOffset(i) + pgdisk * g_cfg->PageSize);
 
@@ -246,7 +232,7 @@ AddrSpace::AddrSpace(OpenFile *exec_file, Process *p, uint64_t *err) {
 
       translationTable->clearBitValid(virt_page);
 
-      #endif
+    #endif
 
     }
   }
@@ -355,21 +341,8 @@ AddrSpace::StackAllocate(void) {
     /* End of code without demand paging */
     #endif
     #ifdef ETUDIANTS_TP
-      // Allocate a new physical page for the stack, halt if not page available
-    int pp = g_physical_mem_manager->FindFreePage();
-    if (pp == INVALID_PAGE) {
-      printf("Not enough free space to load stack\n");
-      g_machine->interrupt->Halt(ERROR);
-    }
-    g_physical_mem_manager->tpr[pp].virtualPage = i;
-    g_physical_mem_manager->tpr[pp].owner = this;
-    g_physical_mem_manager->tpr[pp].locked = true;
-    translationTable->setPhysicalPage(i, pp);
 
     // Fill the page with zeroes
-    memset(&(g_machine->mainMemory[translationTable->getPhysicalPage(i) *
-                                   g_cfg->PageSize]),
-           0x0, g_cfg->PageSize);
     translationTable->setAddrDisk(i, INVALID_SECTOR);
     translationTable->clearBitValid(i); // LIGNE CHANGéE
     translationTable->clearBitSwap(i);
