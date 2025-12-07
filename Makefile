@@ -15,7 +15,7 @@ include $(TOPDIR)/Makefile.config
 # Main Targets
 #
 nachos: $(KERNEL_LIBS)
-	$(HOST_GXX) -o $@ $(KERNEL_LIBS) $(HOST_LDFLAGS)
+	$(HOST_GXX) -o $@ $(KERNEL_LIBS) $(HOST_LDFLAGS) -fsanitize=address
 
 user_tests: user_lib
 	$(MAKE) -C test

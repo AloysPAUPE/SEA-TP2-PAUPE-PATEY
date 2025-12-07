@@ -222,10 +222,10 @@ public:
   ~ElfFile() {
     if (incorrect_header == 0) {
       if (is32Hdr)
-        delete section_table32;
+        delete[] section_table32;
       else
-        delete section_table64;
-      delete shnames;
+        delete[] section_table64;
+      delete[] shnames;
     }
   }
 

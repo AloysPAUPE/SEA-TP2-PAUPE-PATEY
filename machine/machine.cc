@@ -120,6 +120,7 @@ Machine::~Machine() {
   delete this->disk;
   delete this->diskSwap;
   delete this->console;
+  delete[] this->mainMemory;
 }
 
 //----------------------------------------------------------------------

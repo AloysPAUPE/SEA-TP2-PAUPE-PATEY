@@ -55,6 +55,7 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
   #ifdef ETUDIANTS_TP
     uint64_t free_page=g_physical_mem_manager->FindFreePage();
     TranslationTable* vp_translationTable = g_current_thread->GetProcessOwner()->addrspace->translationTable; 
+    g_physical_mem_manager->SetTPREntry(free_page, virtualPage, g_current_thread->GetProcessOwner()->addrspace, true);
     bool vp_bit_swap = vp_translationTable->getBitSwap(virtualPage);
     uint32_t vp_addr_disk = vp_translationTable->getAddrDisk(virtualPage);
     if (vp_bit_swap == true) {
@@ -76,6 +77,7 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
             g_cfg->PageSize, vp_addr_disk);
 
       }
+      g_physical_mem_manager->SetTPREntry(free_page, virtualPage, g_current_thread->GetProcessOwner()->addrspace, false);
       vp_translationTable->setBitValid(virtualPage);
   #endif
   return ((ExceptionType) 0);
