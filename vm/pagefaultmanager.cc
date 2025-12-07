@@ -54,6 +54,29 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
   #endif
   #ifdef ETUDIANTS_TP
     uint64_t free_page=g_physical_mem_manager->FindFreePage();
+    TranslationTable* vp_translationTable = g_current_thread->GetProcessOwner()->addrspace->translationTable; 
+    bool vp_bit_swap = vp_translationTable->getBitSwap(virtualPage);
+    uint32_t vp_addr_disk = vp_translationTable->getAddrDisk(virtualPage);
+    if (vp_bit_swap == true) {
+        g_swap_manager->GetPageSwap(vp_addr_disk, free_page);
+      } else if (vp_addr_disk == INVALID_SECTOR){
+        // The section does not have an image in the executable
+        // Fill it with zeroes
+        memset(&(g_machine
+                     ->mainMemory[vp_translationTable->getPhysicalPage(virtualPage) *
+                                  g_cfg->PageSize]),
+               0, g_cfg->PageSize);
+      } else{
+        // The section has an image in the executable file
+        // Read it from the disk
+        g_current_thread->GetProcessOwner()->exec_file->ReadAt(
+            (char *) &(g_machine->mainMemory[vp_translationTable->getPhysicalPage(
+                                                 virtualPage) *
+                                             g_cfg->PageSize]),
+            g_cfg->PageSize, vp_addr_disk);
+
+      }
+      vp_translationTable->setBitValid(virtualPage);
   #endif
   return ((ExceptionType) 0);
 }

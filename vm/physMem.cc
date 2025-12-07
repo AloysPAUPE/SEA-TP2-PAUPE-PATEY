@@ -40,7 +40,12 @@ PhysicalMemManager::PhysicalMemManager() {
     tpr[i].owner = NULL;
     free_page_list.Append((void *) i);
   }
+  #ifndef ETUDIANTS_TP
   i_clock = -1;
+  #endif
+  #ifdef ETUDIANTS_TP
+  i_clock = 0;
+  #endif
 }
 
 PhysicalMemManager::~PhysicalMemManager() {
@@ -134,7 +139,12 @@ PhysicalMemManager::FindFreePage() {
 
   // Check that the free list is not empty
   if (free_page_list.IsEmpty()) {
+    #ifndef ETUDIANTS_TP
     return INVALID_PAGE;
+    #endif
+    #ifdef ETUDIANTS_TP
+    return EvictPage();
+    #endif
   }
 
   // Update statistics
@@ -163,9 +173,23 @@ PhysicalMemManager::FindFreePage() {
 //-----------------------------------------------------------------
 uint64_t
 PhysicalMemManager::EvictPage() {
+  #ifndef ETUDIANTS_TP
   printf("**** Warning: page replacement algorithm is not implemented yet\n");
   exit(ERROR);
   return (0);
+  #endif
+  #ifdef ETUDIANTS_TP
+  printf("valeur de iclock : %lu\n", i_clock);
+  while(tpr[i_clock].locked == true || tpr[i_clock].owner->translationTable->getBitU(tpr[i_clock].virtualPage) == 1){
+    tpr[i_clock].owner->translationTable->clearBitU(tpr[i_clock].virtualPage);
+    i_clock = (i_clock+1)%(g_cfg->NumPhysPages);
+    printf("valeur de iclock : %lu\n", i_clock);
+  }
+  printf("on est sorti\n");
+  tpr[i_clock].owner->translationTable->setAddrDisk(tpr[i_clock].virtualPage, g_swap_manager->PutPageSwap(-1, i_clock));
+  FreePhysicalPage(i_clock);
+  return FindFreePage();
+  #endif
 }
 
 //-----------------------------------------------------------------
