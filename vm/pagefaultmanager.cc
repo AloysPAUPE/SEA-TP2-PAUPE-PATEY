@@ -51,14 +51,22 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
   #ifndef ETUDIANTS_TP
   printf("**** Warning: page fault manager is not implemented yet\n");
   exit(ERROR);
+  return ((ExceptionType) 0);
   #endif
   #ifdef ETUDIANTS_TP
+    TranslationTable* vp_translationTable = g_current_thread->GetProcessOwner()->addrspace->translationTable;
+    while(vp_translationTable->getBitIo(virtualPage)){
+      g_current_thread->Yield();
+    }
+    if(vp_translationTable->getBitValid(virtualPage)){
+      return NO_EXCEPTION;
+    }
+    vp_translationTable->setBitIo(virtualPage);
     uint64_t free_page=g_physical_mem_manager->FindFreePage();
     if(free_page == (uint64_t)INVALID_PAGE){
       free_page = g_physical_mem_manager->EvictPage();
     }
     g_physical_mem_manager->SetTPREntry(free_page, virtualPage, g_current_thread->GetProcessOwner()->addrspace, true);
-    TranslationTable* vp_translationTable = g_current_thread->GetProcessOwner()->addrspace->translationTable; 
     vp_translationTable->setPhysicalPage(virtualPage, free_page);
     bool vp_bit_swap = vp_translationTable->getBitSwap(virtualPage);
     uint32_t vp_addr_disk = vp_translationTable->getAddrDisk(virtualPage);
@@ -71,6 +79,7 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
                      ->mainMemory[vp_translationTable->getPhysicalPage(virtualPage) *
                                   g_cfg->PageSize]),
                0, g_cfg->PageSize);
+        g_swap_manager->PutPageSwap(vp_addr_disk, free_page);
       } else{
         // The section has an image in the executable file
         // Read it from the disk
@@ -83,6 +92,7 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
       }
       g_physical_mem_manager->UnlockPage(free_page);
       vp_translationTable->setBitValid(virtualPage);
+      vp_translationTable->clearBitIo(virtualPage);
+      return NO_EXCEPTION;
   #endif
-  return ((ExceptionType) 0);
 }

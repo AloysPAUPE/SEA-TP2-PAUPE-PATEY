@@ -174,15 +174,15 @@ PhysicalMemManager::EvictPage() {
   return (0);
   #endif
   #ifdef ETUDIANTS_TP
-  int m = 0;
-  while((tpr[i_clock].locked && m<5) || tpr[i_clock].owner->translationTable->getBitU(tpr[i_clock].virtualPage)){
+  while(tpr[i_clock].locked || tpr[i_clock].owner->translationTable->getBitU(tpr[i_clock].virtualPage)){
     tpr[i_clock].owner->translationTable->clearBitU(tpr[i_clock].virtualPage);
     i_clock = (i_clock+1)%(g_cfg->NumPhysPages);
-    m++;
   }
-  tpr[i_clock].owner->translationTable->setAddrDisk(tpr[i_clock].virtualPage, g_swap_manager->PutPageSwap(-1, i_clock));
-  tpr[i_clock].owner->translationTable->clearBitSwap(tpr[i_clock].virtualPage);
-  printf("okok\n");
+  tpr[i_clock].owner->translationTable->clearBitValid(tpr[i_clock].virtualPage);
+  if(tpr[i_clock].owner->translationTable->getBitM(tpr[i_clock].virtualPage)){
+    tpr[i_clock].owner->translationTable->setAddrDisk(tpr[i_clock].virtualPage, g_swap_manager->PutPageSwap(-1, i_clock));
+    tpr[i_clock].owner->translationTable->setBitSwap(tpr[i_clock].virtualPage);
+  }
   return i_clock;
   #endif
 }

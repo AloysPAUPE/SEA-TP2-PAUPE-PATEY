@@ -341,8 +341,6 @@ AddrSpace::StackAllocate(void) {
     /* End of code without demand paging */
     #endif
     #ifdef ETUDIANTS_TP
-
-    // Fill the page with zeroes
     translationTable->setAddrDisk(i, INVALID_SECTOR);
     translationTable->clearBitValid(i); // LIGNE CHANGéE
     translationTable->clearBitSwap(i);
