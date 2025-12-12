@@ -62,7 +62,7 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
       if(vp_translationTable->getBitValid(virtualPage)){
         return NO_EXCEPTION;
       }
-    }  
+    }
     vp_translationTable->setBitIo(virtualPage);
     uint64_t free_page=g_physical_mem_manager->FindFreePage();
     if(free_page == (uint64_t)INVALID_PAGE){
@@ -90,11 +90,13 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
                                                  virtualPage) *
                                              g_cfg->PageSize]),
             g_cfg->PageSize, vp_addr_disk);
-
       }
-      g_physical_mem_manager->UnlockPage(free_page);
       vp_translationTable->setBitValid(virtualPage);
+      vp_translationTable->clearBitM(virtualPage);
+      vp_translationTable->setBitU(virtualPage);
+      g_physical_mem_manager->UnlockPage(free_page);
       vp_translationTable->clearBitIo(virtualPage);
+
       return NO_EXCEPTION;
   #endif
 }
