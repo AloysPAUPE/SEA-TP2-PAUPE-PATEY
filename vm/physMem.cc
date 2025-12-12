@@ -189,8 +189,8 @@ PhysicalMemManager::EvictPage() {
     tpr[i_clock].owner->translationTable->clearBitU(tpr[i_clock].virtualPage);
     i_clock = (i_clock+1)%(g_cfg->NumPhysPages);
   }
-  tpr[i_clock].owner->translationTable->clearBitValid(tpr[i_clock].virtualPage);
   tpr[i_clock].locked = true;
+  tpr[i_clock].owner->translationTable->clearBitValid(tpr[i_clock].virtualPage);
   if(tpr[i_clock].owner->translationTable->getBitM(tpr[i_clock].virtualPage)){
     tpr[i_clock].owner->translationTable->setBitIo(tpr[i_clock].virtualPage);
     tpr[i_clock].owner->translationTable->setAddrDisk(tpr[i_clock].virtualPage, g_swap_manager->PutPageSwap(-1, i_clock));

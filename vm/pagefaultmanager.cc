@@ -56,35 +56,34 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
   #ifdef ETUDIANTS_TP
     TranslationTable* vp_translationTable = g_current_thread->GetProcessOwner()->addrspace->translationTable;
     while(vp_translationTable->getBitIo(virtualPage)){
-      while(vp_translationTable->getBitIo(virtualPage)){
-        g_current_thread->Yield();
-      }
+      g_current_thread->Yield();
       if(vp_translationTable->getBitValid(virtualPage)){
         return NO_EXCEPTION;
       }
     }
     vp_translationTable->setBitIo(virtualPage);
     uint64_t free_page=g_physical_mem_manager->FindFreePage();
-    if(free_page == (uint64_t)INVALID_PAGE){
-      free_page = g_physical_mem_manager->EvictPage();
+    if(free_page != (uint64_t)INVALID_PAGE){
+      g_physical_mem_manager->SetTPREntry(free_page, virtualPage, g_current_thread->GetProcessOwner()->addrspace, true);
     }
-    g_physical_mem_manager->SetTPREntry(free_page, virtualPage, g_current_thread->GetProcessOwner()->addrspace, true);
+    else{
+      free_page = g_physical_mem_manager->EvictPage();
+      g_physical_mem_manager->SetTPREntry(free_page, virtualPage, g_current_thread->GetProcessOwner()->addrspace, true);
+    }
     vp_translationTable->setPhysicalPage(virtualPage, free_page);
     bool vp_bit_swap = vp_translationTable->getBitSwap(virtualPage);
     uint32_t vp_addr_disk = vp_translationTable->getAddrDisk(virtualPage);
     if (vp_bit_swap) {
         g_swap_manager->GetPageSwap(vp_addr_disk, free_page);
       } else if (vp_addr_disk == (uint32_t)INVALID_SECTOR){
-        // The section does not have an image in the executable
-        // Fill it with zeroes
+
         memset(&(g_machine
                      ->mainMemory[vp_translationTable->getPhysicalPage(virtualPage) *
                                   g_cfg->PageSize]),
                0, g_cfg->PageSize);
         g_swap_manager->PutPageSwap(vp_addr_disk, free_page);
+        vp_translationTable->setBitSwap(virtualPage);
       } else{
-        // The section has an image in the executable file
-        // Read it from the disk
         g_current_thread->GetProcessOwner()->exec_file->ReadAt(
             (char *) &(g_machine->mainMemory[vp_translationTable->getPhysicalPage(
                                                  virtualPage) *
