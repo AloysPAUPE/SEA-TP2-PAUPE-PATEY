@@ -174,6 +174,17 @@ PhysicalMemManager::EvictPage() {
   return (0);
   #endif
   #ifdef ETUDIANTS_TP
+  bool all_locked = true;
+  while(all_locked){
+    for(uint64_t i=0;i<g_cfg->NumPhysPages;i++){
+      if(!tpr[i].locked){
+        all_locked = false;
+      }
+    }
+    if(all_locked){
+      g_current_thread->Yield();
+    }
+  }
   while(tpr[i_clock].locked || tpr[i_clock].owner->translationTable->getBitU(tpr[i_clock].virtualPage)){
     tpr[i_clock].owner->translationTable->clearBitU(tpr[i_clock].virtualPage);
     i_clock = (i_clock+1)%(g_cfg->NumPhysPages);

@@ -56,11 +56,13 @@ PageFaultManager::PageFault(uint64_t virtualPage) {
   #ifdef ETUDIANTS_TP
     TranslationTable* vp_translationTable = g_current_thread->GetProcessOwner()->addrspace->translationTable;
     while(vp_translationTable->getBitIo(virtualPage)){
-      g_current_thread->Yield();
-    }
-    if(vp_translationTable->getBitValid(virtualPage)){
-      return NO_EXCEPTION;
-    }
+      while(vp_translationTable->getBitIo(virtualPage)){
+        g_current_thread->Yield();
+      }
+      if(vp_translationTable->getBitValid(virtualPage)){
+        return NO_EXCEPTION;
+      }
+    }  
     vp_translationTable->setBitIo(virtualPage);
     uint64_t free_page=g_physical_mem_manager->FindFreePage();
     if(free_page == (uint64_t)INVALID_PAGE){
